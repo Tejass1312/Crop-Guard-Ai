@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropGuard AI | Disease Detection</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+    <main>
+
+        <form class="upload-form" action="/predict-ui" method="post" enctype="multipart/form-data">
+
+            <div class="form-header">
+                <h1><i class="fas fa-seedling"></i> CropGuard AI</h1>
+                <p class="subtitle">Precision Agriculture Disease Diagnostics</p>
+            </div>
+
+            <div class="drop-zone" id="drop-zone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & Drop leaf image or <span>Browse</span></p>
+                <input type="file" name="image" id="file-input" required hidden>
+            </div>
+
+            <div id="file-name-display"></div>
+
+            <button type="submit" class="btn-predict">
+                Analyze Crop Health
+            </button>
+        </form>
+
+        {% if result %}
+        <div class="result-card fade-in">
+
+            <div class="card-header">
+                <h2>Diagnostic Report</h2>
+                <span class="status-badge {{ result.risk_analysis.risk_level | lower }}">
+                    {{ result.risk_analysis.risk_level }} Risk
+                </span>
+            </div>
+
+            <div class="results-grid">
+                <div class="data-point">
+                    <span class="label">Detected Disease</span>
+                    <span class="value">{{ result.disease }}</span>
+                </div>
+
+                <div class="data-point">
+                    <span class="label">Confidence</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ result.confidence }}%"></div>
+                    </div>
+                    <span class="value">{{ result.confidence }}%</span>
+                </div>
+            </div>
+
+            <div class="recommendation-box">
+                <h3><i class="fas fa-medkit"></i> Recommended Action</h3>
+                <p>{{ result.risk_analysis.recommendation }}</p>
+            </div>
+
+        </div>
+        {% endif %}
+
+    </main>
+</div>
+
+<script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileNameDisplay = document.getElementById('file-name-display');
+
+    dropZone.onclick = () => fileInput.click();
+
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.textContent = "Selected: " + fileInput.files[0].name;
+        }
+    };
+
+    dropZone.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        fileInput.files = e.dataTransfer.files;
+        fileNameDisplay.textContent = "Selected: " + e.dataTransfer.files[0].name;
+    });
+</script>
+
+</body>
+</html>

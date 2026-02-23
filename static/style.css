@@ -1,0 +1,185 @@
+:root {
+    --primary: #4caf50;
+    --primary-glow: rgba(76, 175, 80, 0.7);
+    --glass-bg: rgba(20, 20, 20, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --text-white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)),
+        url("ai-plant.png") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    color: var(--text-white);
+}
+
+/* CENTER EVERYTHING */
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* GLASS CARD */
+.upload-form {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    padding: 40px 30px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(98, 94, 94, 0.6);
+}
+
+.form-header h1 {
+    color: #6dff8d;
+    font-size: 2.3rem;
+    text-shadow: 0 0 15px var(--primary-glow);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+/* DROP ZONE */
+.drop-zone {
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 12px;
+    padding: 30px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.drop-zone.dragover {
+    border-color: var(--primary);
+    background: rgba(76, 175, 80, 0.15);
+}
+
+.drop-zone i {
+    font-size: 40px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.drop-zone p {
+    color: #aaa;
+}
+
+.drop-zone span {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* BUTTON */
+.btn-predict {
+    margin-top: 25px;
+    width: 100%;
+    padding: 15px;
+    background: var(--primary);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-predict:hover {
+    background: #43a047;
+    box-shadow: 0 0 25px var(--primary-glow);
+}
+
+/* RESULT CARD */
+.result-card {
+    margin-top: 25px;
+    background: rgba(0,0,0,0.85);
+    border-radius: 16px;
+    padding: 25px;
+    max-width: 420px;
+    width: 100%;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    background: var(--primary);
+}
+
+.results-grid {
+    margin-top: 15px;
+}
+
+.label {
+    color: #bbb;
+    font-size: 0.85rem;
+}
+
+.value {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.progress-bar {
+    background: #333;
+    height: 8px;
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
+.progress {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+/* RECOMMENDATION */
+.recommendation-box {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .upload-form, .result-card {
+        padding: 30px 20px;
+    }
+}
